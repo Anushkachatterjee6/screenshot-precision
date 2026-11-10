@@ -3,7 +3,12 @@ import { canExportSrt, formatTranscript, toSrt } from "@/lib/transcript-format";
 import { addTerm } from "@/lib/polyglot-store";
 import { diffWords } from "@/lib/word-diff";
 
-const base = { id: "1", filename: "lecture.wav", transcript: "मुझे machine", status: "completed" as const };
+const base = {
+  id: "1",
+  filename: "lecture.wav",
+  transcript: "मुझे machine",
+  status: "completed" as const,
+};
 
 describe("transcript export", () => {
   it("refuses SRT without word timestamps", () => {
@@ -13,7 +18,12 @@ describe("transcript export", () => {
   });
 
   it("builds SRT cues from timed words", () => {
-    const srt = toSrt({ words: [{ text: "मुझे", language: "hi", start: 0, end: 0.4 }, { text: "machine", language: "en", start: 0.4, end: 1.25 }] });
+    const srt = toSrt({
+      words: [
+        { text: "मुझे", language: "hi", start: 0, end: 0.4 },
+        { text: "machine", language: "en", start: 0.4, end: 1.25 },
+      ],
+    });
     expect(srt).toBe("1\n00:00:00,000 --> 00:00:01,250\nमुझे machine\n");
   });
 

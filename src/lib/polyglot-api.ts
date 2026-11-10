@@ -55,7 +55,9 @@ export const isDemoMode = API_MODE === "demo";
 
 function apiUrl(path: string): string {
   if (!API_BASE_URL) {
-    throw new Error("Backend unavailable. Configure VITE_API_BASE_URL to connect the FastAPI service.");
+    throw new Error(
+      "Backend unavailable. Configure VITE_API_BASE_URL to connect the FastAPI service.",
+    );
   }
   return `${API_BASE_URL}${path}`;
 }
@@ -82,7 +84,11 @@ export async function transcribeAudio(input: TranscriptionRequest): Promise<Tran
   if (input.domain) form.set("domain", input.domain);
   form.set("vocabulary", JSON.stringify(input.vocabulary ?? []));
   form.set("contextual_rescoring", String(input.contextualRescoring ?? true));
-  return request<TranscriptResult>("/api/transcribe", { method: "POST", body: form, signal: input.signal ?? null });
+  return request<TranscriptResult>("/api/transcribe", {
+    method: "POST",
+    body: form,
+    signal: input.signal ?? null,
+  });
 }
 
 export async function uploadRecording(audio: Blob, filename: string): Promise<{ id: string }> {
@@ -91,7 +97,11 @@ export async function uploadRecording(audio: Blob, filename: string): Promise<{ 
   return request<{ id: string }>("/api/record", { method: "POST", body: form });
 }
 
-export async function adaptContext(input: { transcript: string; domain: string; vocabulary: string[] }) {
+export async function adaptContext(input: {
+  transcript: string;
+  domain: string;
+  vocabulary: string[];
+}) {
   return request<{ original: string; adapted: string }>("/api/context", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -100,10 +110,16 @@ export async function adaptContext(input: { transcript: string; domain: string; 
 }
 
 export async function analyzeLanguage(transcript: string) {
-  return request<{ words: TranscriptWord[]; hindiCount: number; englishCount: number; switches: number }>(
-    "/api/analyze-language",
-    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript }) },
-  );
+  return request<{
+    words: TranscriptWord[];
+    hindiCount: number;
+    englishCount: number;
+    switches: number;
+  }>("/api/analyze-language", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ transcript }),
+  });
 }
 
 export async function getHistory(): Promise<TranscriptResult[]> {
@@ -114,7 +130,10 @@ export async function getModelInfo(): Promise<ModelInfo> {
   return request<ModelInfo>("/api/model-info");
 }
 
-export async function getEvaluation(): Promise<{ metrics: EvaluationMetric[]; experiments: Array<Record<string, string | number | null>> }> {
+export async function getEvaluation(): Promise<{
+  metrics: EvaluationMetric[];
+  experiments: Array<Record<string, string | number | null>>;
+}> {
   return request("/api/evaluation");
 }
 
@@ -126,7 +145,11 @@ export async function exportTranscript(input: { transcript: string; format: "txt
   });
 }
 
-export function downloadText(filename: string, text: string, mimeType = "text/plain;charset=utf-8") {
+export function downloadText(
+  filename: string,
+  text: string,
+  mimeType = "text/plain;charset=utf-8",
+) {
   const blob = new Blob([text], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");

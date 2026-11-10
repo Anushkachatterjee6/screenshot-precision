@@ -8,7 +8,9 @@ describe("language statistics", () => {
 
   it("counts switches between consecutive labelled tokens, skipping other tokens", () => {
     // HI EN EN HI EN HI HI → 4 switches (HI→EN 2, EN→HI 2)
-    const stats = languageStats(identifyWords("मुझे machine learning का assignment complete करना है।"));
+    const stats = languageStats(
+      identifyWords("मुझे machine learning का assignment complete करना है।"),
+    );
     expect(stats.hindi).toBe(4);
     expect(stats.english).toBe(4);
     expect(stats.switches).toBe(4);

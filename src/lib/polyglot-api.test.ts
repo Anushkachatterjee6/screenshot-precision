@@ -6,15 +6,17 @@ describe("Polyglot ASR API boundaries", () => {
 
   it("does not fabricate a transcript when the backend is not configured", async () => {
     if (isDemoMode) {
-      await expect(transcribeAudio({ audio: new File(["audio"], "sample.wav") }))
-        .rejects.toThrow("Backend unavailable. Configure VITE_API_BASE_URL");
+      await expect(transcribeAudio({ audio: new File(["audio"], "sample.wav") })).rejects.toThrow(
+        "Backend unavailable. Configure VITE_API_BASE_URL",
+      );
     }
   });
 
   it("reports disconnected backends without substituting demo output", async () => {
     if (isDemoMode) return;
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
-    await expect(transcribeAudio({ audio: new File(["audio"], "sample.wav") }))
-      .rejects.toThrow("Could not reach the transcription backend");
+    await expect(transcribeAudio({ audio: new File(["audio"], "sample.wav") })).rejects.toThrow(
+      "Could not reach the transcription backend",
+    );
   });
 });

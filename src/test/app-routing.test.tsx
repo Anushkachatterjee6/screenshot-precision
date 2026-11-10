@@ -9,12 +9,17 @@ import { routeTree } from "@/routeTree.gen";
 describe("App routing", () => {
   const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
 
-  it.each(["/", "/transcription", "/language-analysis", "/context-adaptation", "/model-evaluation", "/history", "/settings"])(
-    "matches a page for %s instead of falling back to not found",
-    (path) => {
-      const matches = router.matchRoutes(path);
-      expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
-      expect(matches.at(-1)?.routeId).toBe(path);
-    },
-  );
+  it.each([
+    "/",
+    "/transcription",
+    "/language-analysis",
+    "/context-adaptation",
+    "/model-evaluation",
+    "/history",
+    "/settings",
+  ])("matches a page for %s instead of falling back to not found", (path) => {
+    const matches = router.matchRoutes(path);
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.at(-1)?.routeId).toBe(path);
+  });
 });

@@ -28,3 +28,12 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Each of the seven Polyglot ASR pages lives in `src/components/polyglot/*-page.tsx`, re-exported from `src/components/polyglot-pages.tsx`; route files in `src/routes/` only set `head()` and point at a page. Why: keeps routes thin and page code findable.
+- `AppShell` wraps `<Outlet />` in `src/routes/__root.tsx`, not each route. Why: sidebar state survives navigation and the 404 page keeps the shell.
+- All backend calls go through `src/lib/polyglot-api.ts`; extend types only with optional fields and document them in `API_CONTRACT.md`. Why: the FastAPI backend is developed separately against that contract.
+- Never fabricate transcripts, analyses, metrics or history: show empty/unavailable states, and label any local heuristic (script-based language estimate) as such. Why: research integrity.
+- Browser-only workspace state uses `src/lib/polyglot-store.ts` (localStorage preferences, sessionStorage vocabulary/last transcript); no database. Why: the user explicitly does not want one.
+- Pure logic (language stats, evaluation matching, export formats, word diff) lives in `src/lib/*` with vitest tests next to it. Why: testable without the UI.

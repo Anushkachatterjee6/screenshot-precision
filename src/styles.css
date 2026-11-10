@@ -115,11 +115,8 @@
   --sidebar-border: oklch(0.27 0.016 250);
   --sidebar-ring: oklch(0.83 0.13 168 / 60%);
 
-  --gradient-frame: radial-gradient(
-      1200px 600px at 85% -10%,
-      oklch(0.83 0.13 168 / 7%),
-      transparent 60%
-    ),
+  --gradient-frame:
+    radial-gradient(1200px 600px at 85% -10%, oklch(0.83 0.13 168 / 7%), transparent 60%),
     radial-gradient(900px 500px at -10% 110%, oklch(0.76 0.12 238 / 6%), transparent 60%);
   --shadow-surface: 0 1px 0 oklch(1 0 0 / 3%) inset, 0 12px 32px -18px oklch(0 0 0 / 60%);
   --shadow-glow: 0 0 0 1px oklch(0.83 0.13 168 / 35%), 0 0 24px -6px oklch(0.83 0.13 168 / 45%);
@@ -139,7 +136,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: "ss01", "tnum" 0;
+    font-feature-settings:
+      "ss01",
+      "tnum" 0;
   }
 
   :focus-visible {

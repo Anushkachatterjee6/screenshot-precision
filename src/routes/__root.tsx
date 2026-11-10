@@ -17,7 +17,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
@@ -84,10 +84,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Polyglot ASR — Research Console" },
-      { name: "description", content: "Code-switched Hindi–English speech recognition research console for the XLS-R 300M CTC model." },
+      {
+        name: "description",
+        content:
+          "Code-switched Hindi–English speech recognition research console for the XLS-R 300M CTC model.",
+      },
       { name: "theme-color", content: "#1a1f27" },
       { property: "og:title", content: "Polyglot ASR — Research Console" },
-      { property: "og:description", content: "Code-switched Hindi–English speech recognition research console." },
+      {
+        property: "og:description",
+        content: "Code-switched Hindi–English speech recognition research console.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

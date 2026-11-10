@@ -83,7 +83,11 @@ export const DEFAULT_PREFERENCES: Preferences = {
   exportFormat: "txt",
 };
 
-export const preferencesStore = createStore<Preferences>("polyglot-asr:preferences", "local", DEFAULT_PREFERENCES);
+export const preferencesStore = createStore<Preferences>(
+  "polyglot-asr:preferences",
+  "local",
+  DEFAULT_PREFERENCES,
+);
 export const usePreferences = preferencesStore.useStore;
 
 export const STARTER_DOMAINS: Record<string, string[]> = {

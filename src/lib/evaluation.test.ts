@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { WER_METRIC, bestExperiment, headlineMetric, matchMetric, mergeExperiments } from "@/lib/evaluation";
+import {
+  WER_METRIC,
+  bestExperiment,
+  headlineMetric,
+  matchMetric,
+  mergeExperiments,
+} from "@/lib/evaluation";
 
 describe("evaluation results", () => {
   it("matches backend metric names by abbreviation or full name", () => {
@@ -18,7 +24,10 @@ describe("evaluation results", () => {
   });
 
   it("uses only backend values and treats null as not measured", () => {
-    const rows = mergeExperiments([{ name: "E1 · Fine-tuned XLS-R", WER: 31.2, CER: null }, { name: "E3", WER: "28.4" }]);
+    const rows = mergeExperiments([
+      { name: "E1 · Fine-tuned XLS-R", WER: 31.2, CER: null },
+      { name: "E3", WER: "28.4" },
+    ]);
     expect(rows.find((r) => r.id === "E1")?.values.WER).toBe(31.2);
     expect(rows.find((r) => r.id === "E1")?.values.CER).toBeNull();
     expect(rows.find((r) => r.id === "E3")?.values.WER).toBe(28.4);
@@ -26,7 +35,13 @@ describe("evaluation results", () => {
   });
 
   it("prefers a measured headline metric over a null one", () => {
-    const metric = headlineMetric([{ name: "WER", value: null, unit: "%" }, { name: "WER", value: 25, unit: "%", experiment: "E4" }], WER_METRIC);
+    const metric = headlineMetric(
+      [
+        { name: "WER", value: null, unit: "%" },
+        { name: "WER", value: 25, unit: "%", experiment: "E4" },
+      ],
+      WER_METRIC,
+    );
     expect(metric?.experiment).toBe("E4");
   });
 });

@@ -43,7 +43,9 @@ export type LanguageStats = {
 };
 
 export function languageStats(words: TranscriptWord[]): LanguageStats {
-  const labelled = words.filter((w): w is TranscriptWord & { language: "hi" | "en" } => w.language !== "other");
+  const labelled = words.filter(
+    (w): w is TranscriptWord & { language: "hi" | "en" } => w.language !== "other",
+  );
   const hindi = labelled.filter((w) => w.language === "hi").length;
   const english = labelled.length - hindi;
   const segments: LanguageSegment[] = [];
